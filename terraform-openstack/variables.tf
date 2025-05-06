@@ -7,11 +7,18 @@ variable "password" {
 variable "region" {
   default = "RegionOne"
 }
-variable "instance_name" {}
-variable "flavor" {}
-variable "image" {}
-variable "network" {}
-variable "sec_group" {
-  default = "default"
+
+variable "vm_definitions" {
+  type = map(object({
+    image_name      = string
+    flavor_name     = string
+    key_pair        = string
+    security_groups = list(string)
+    network_name    = string
+  }))
 }
-variable "keypair" {}
+
+variable "floating_ip_pool" {
+  type        = string
+  description = "External network pool used for floating IP allocation"
+}
